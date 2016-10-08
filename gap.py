@@ -73,4 +73,4 @@ for generation in range(stop_evolution):
 
 	population = new_population
 
-print population[0]
+print(population[0])
