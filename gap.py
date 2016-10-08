@@ -52,7 +52,7 @@ for x in range(pop_size):
 
 	population.append(chrom)
 
-# Initial evaluation
+print()
 for generation in range(stop_evolution):
 	new_population = []
 	for chrom in population:
