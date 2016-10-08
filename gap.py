@@ -11,12 +11,12 @@ def recombination(chrom1, chrom2):
 	return chrom1[:3] + chrom2[3:]
 
 def mutation(chrom):
-	for individual in chrom:
+	for p in range(len(chrom)):
 		rand = random.randint(1,100)
 		if(rand <= 5):
 			rand_pokemon = random.randint(0,800)
-			# chrom[individual] = Pokemon.objects.all().filter(num=rand_pokemon)
-			chrom[individual] = Pokemon(no=rand_pokemon)
+			# chrom[p] = Pokemon.objects.all().filter(num=rand_pokemon)
+			chrom[p] = Pokemon(no=rand_pokemon)
 	return chrom
 
 def evaluate(chrom_list):
