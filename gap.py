@@ -1,4 +1,5 @@
-from random
+import random
+from evo.models import Pokemon
 
 # Sample Database row
 # Name	Type 1	Type 2	Total	HP	Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
@@ -25,10 +26,16 @@ def mutation(chrom):
 			chrom[individual] = Pokemon.objects.all().filter(num=rand_pokemon)
 	return chrom
 
-def evaluate(chrom):
-	for individual in chrom:
+def evaluate(chrom_list):
+	chrom_wins = [0] * len(chrom_list)
 
-   return fitness
+	for i in range(chrom_list):
+		for j in range(i):
+			chrom_wins[fight(chrom_list, i, j)] += 1
+
+	pairs = [(chrom_wins[i], i) for i in range(len(chrom_wins))]
+
+	return chrom_list[sorted(pairs)[::-1][0][1]]
 
 # Main 
 random.seed()
@@ -47,22 +54,20 @@ for x in range(0,pop_size):
 for generation in range(0,stop_evolution):
 	new_population = []
 	for chrom in population:
-		# Select parents
-		chrom1 = population[]
-		chrom2 = population[]
+
+		# Select k chroms to have a tournament
+		chrom1 = []
+		chrom2 = []
+		for k in range(1,k_tournament):
+			rand_pokemon = Random.randint(0,800)
+			chrom1.append(population[rand_pokemon])
+
+			rand_pokemon = Random.randint(0,800)
+			chrom2.append(population[rand_pokemon])
 
 		# Recombination & Mutation
-		child   = mutation(recombination(chrom1,chrom2))
-		fitness = evaluate(child)
+		# child = mutation(recombination(evaluate(chrom1),evaluate(chrom2)))
+		child = mutation(recombination(chrom1[0],chrom2[0]))
+		new_population.append(child)
 
-		fitness_pair = (fitness, child)
-		new_population.append(fitness_pair)
-
-	for chrom in new_population:
-		heap = []
-		for add in range(1,k_tournament):
-			rand_pokemon = random.randint(0,pop_size)
-			heap.append(new_population[rand_pokemon])
-		heap.sort(key=lambda tup: tup[0])
-
-		population[chrom] = heap[-1]
+	population = new_population
