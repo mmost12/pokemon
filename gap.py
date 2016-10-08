@@ -9,9 +9,9 @@ population     = []
 
 def recombination(chrom1, chrom2):
 	child = []  
-	for individual in range(0,2):
+	for individual in range(3):
 		child = chrom1[individual]
-	for individual in range(3,5):
+	for individual in range(3,6):
 		child = chrom2[individual]
 	return child
 
@@ -25,6 +25,7 @@ def mutation(chrom):
 	return chrom
 
 def evaluate(chrom_list):
+	assert(len(chrom_list) == 6)
 	chrom_wins = [0] * len(chrom_list)
 
 	for i in range(len(chrom_list)):
@@ -63,17 +64,17 @@ for generation in range(stop_evolution):
 	for chrom in population:
 
 		# Select k chroms to have a tournament
-		chrom1 = []
-		chrom2 = []
+		chrom_list_1 = []
+		chrom_list_2 = []
 		for k in range(k_tournament):
 			rand_pokemon = random.randint(0,pop_size)
-			chrom1.append(population[rand_pokemon])
+			chrom_list_1.append(population[rand_pokemon])
 
 			rand_pokemon = random.randint(0,pop_size)
-			chrom2.append(population[rand_pokemon])
+			chrom_list_2.append(population[rand_pokemon])
 
 		# Recombination & Mutation
-		child = mutation(recombination(evaluate(chrom1),evaluate(chrom2)))
+		child = mutation(recombination(evaluate(chrom_list_1),evaluate(chrom_list_2)))
 		new_population.append(child)
 
 	population = new_population
