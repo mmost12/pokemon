@@ -62,10 +62,10 @@ for generation in range(stop_evolution):
 		chrom_list_1 = []
 		chrom_list_2 = []
 		for k in range(k_tournament):
-			rand_pokemon = random.randint(0,pop_size)
+			rand_pokemon = random.randint(0,pop_size-1)
 			chrom_list_1.append(population[rand_pokemon])
 
-			rand_pokemon = random.randint(0,pop_size)
+			rand_pokemon = random.randint(0,pop_size-1)
 			chrom_list_2.append(population[rand_pokemon])
 
 		# Recombination & Mutation
