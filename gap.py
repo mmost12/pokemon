@@ -73,4 +73,6 @@ for generation in range(stop_evolution):
 
 	population = new_population
 
-print(population[0])
+print("Best team found after", stop_evolution, "generations")
+for pokemon in population[0]
+	print(pokemon.name)
