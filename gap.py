@@ -20,7 +20,6 @@ def mutation(chrom):
 	return chrom
 
 def evaluate(chrom_list):
-	print(chrom_list)
 	chrom_wins = [0] * len(chrom_list)
 
 	for i in range(len(chrom_list)):
