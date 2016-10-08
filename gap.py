@@ -73,4 +73,4 @@ for generation in range(stop_evolution):
 
 	population = new_population
 
-print sorted(population)[-1]
+print population[0]
