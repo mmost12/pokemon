@@ -52,7 +52,7 @@ for x in range(0,pop_size):
 	chrom = []
 
 	for team_select in range(0,5):
-		rand = random.randint(0,800)
+		rand_pokemon = random.randint(0,800)
 		chrom.append(Pokemon(no=rand_pokemon))
 
 	population.append(chrom)
