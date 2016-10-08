@@ -27,7 +27,7 @@ def mutation(chrom):
 def evaluate(chrom_list):
 	chrom_wins = [0] * len(chrom_list)
 
-	for i in range(chrom_list):
+	for i in range(len(chrom_list)):
 		for j in range(i):
 			chrom_wins[fight(chrom_list, i, j)] += 1
 
@@ -48,7 +48,7 @@ def fight(chrom_list, i, j):
 random.seed()
 
 # Initilize population
-for x in range(0,pop_size):
+for x in range(pop_size):
 	chrom = []
 
 	for team_select in range(6):
@@ -58,14 +58,14 @@ for x in range(0,pop_size):
 	population.append(chrom)
 
 # Initial evaluation
-for generation in range(0,stop_evolution):
+for generation in range(stop_evolution):
 	new_population = []
 	for chrom in population:
 
 		# Select k chroms to have a tournament
 		chrom1 = []
 		chrom2 = []
-		for k in range(1,k_tournament):
+		for k in range(k_tournament):
 			rand_pokemon = random.randint(0,pop_size)
 			chrom1.append(population[rand_pokemon])
 
