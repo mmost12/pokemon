@@ -69,7 +69,7 @@ for generation in range(0,stop_evolution):
 			rand_pokemon = random.randint(0,800)
 			chrom1.append(population[rand_pokemon])
 
-			rand_pokemon = Random.randint(0,800)
+			rand_pokemon = random.randint(0,800)
 			chrom2.append(population[rand_pokemon])
 
 		# Recombination & Mutation
