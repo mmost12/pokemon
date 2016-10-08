@@ -1,9 +1,6 @@
 import random
 from evo.models import Pokemon
 
-# Sample Database row
-# Name	Type 1	Type 2	Total	HP	Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
-
 # Global variables
 pop_size       = 100
 stop_evolution = 1000
@@ -23,7 +20,8 @@ def mutation(chrom):
 		rand = random.randint(1,100)
 		if(rand <= 5):
 			rand_pokemon = random.randint(0,800)
-			chrom[individual] = Pokemon.objects.all().filter(num=rand_pokemon)
+			# chrom[individual] = Pokemon.objects.all().filter(num=rand_pokemon)
+			chrom[individual] = Pokemon(no=rand_pokemon)
 	return chrom
 
 def evaluate(chrom_list):
@@ -37,6 +35,12 @@ def evaluate(chrom_list):
 
 	return chrom_list[sorted(pairs)[::-1][0][1]]
 
+def fight(chrom_list, i, j):
+
+
+# Sample Database row
+# Name	Type 1	Type 2	Total	HP	Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
+
 # -------------
 #     Main 
 # -------------
@@ -48,7 +52,7 @@ for x in range(0,pop_size):
 
 	for team_select in range(0,5):
 		rand = random.randint(0,800)
-		chrom.append(Pokemon.objects.all().filter(num=rand))
+		chrom.append(Pokemon(no=rand_pokemon))
 
 	population.append(chrom)
 
