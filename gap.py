@@ -36,7 +36,8 @@ def evaluate(chrom_list):
 	return chrom_list[sorted(pairs)[::-1][0][1]]
 
 def fight(chrom_list, i, j):
-
+	fitness = 12
+	return fitness
 
 # Sample Database row
 # Name	Type 1	Type 2	Total	HP	Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
