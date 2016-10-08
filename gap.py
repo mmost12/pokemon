@@ -36,7 +36,7 @@ def evaluate(chrom_list):
 	return chrom_list[sorted(pairs)[::-1][0][1]]
 
 def fight(chrom_list, i, j):
-	fitness = 12
+	fitness = i
 	return fitness
 
 # Sample Database row
@@ -51,7 +51,7 @@ random.seed()
 for x in range(0,pop_size):
 	chrom = []
 
-	for team_select in range(0,5):
+	for team_select in range(6):
 		rand_pokemon = random.randint(0,800)
 		chrom.append(Pokemon(no=rand_pokemon))
 
@@ -73,8 +73,7 @@ for generation in range(0,stop_evolution):
 			chrom2.append(population[rand_pokemon])
 
 		# Recombination & Mutation
-		# child = mutation(recombination(evaluate(chrom1),evaluate(chrom2)))
-		child = mutation(recombination(chrom1[0],chrom2[0]))
+		child = mutation(recombination(evaluate(chrom1),evaluate(chrom2)))
 		new_population.append(child)
 
 	population = new_population
