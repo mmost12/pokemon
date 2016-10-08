@@ -37,7 +37,9 @@ def evaluate(chrom_list):
 
 	return chrom_list[sorted(pairs)[::-1][0][1]]
 
-# Main 
+# -------------
+#     Main 
+# -------------
 random.seed()
 
 # Initilize population
