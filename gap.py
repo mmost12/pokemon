@@ -25,6 +25,7 @@ def mutation(chrom):
 	return chrom
 
 def evaluate(chrom_list):
+	print(len(chrom_list))
 	assert(len(chrom_list) == 6)
 	chrom_wins = [0] * len(chrom_list)
 
