@@ -8,12 +8,7 @@ k_tournament   = 10
 population     = []
 
 def recombination(chrom1, chrom2):
-	child = []  
-	for individual in range(3):
-		child = chrom1[individual]
-	for individual in range(3,6):
-		child = chrom2[individual]
-	return child
+	return chrom1[:3] + chrom2[3:]
 
 def mutation(chrom):
 	for individual in chrom:
