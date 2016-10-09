@@ -30,11 +30,51 @@ def evaluate(chrom_list):
 	return chrom_list[sorted(pairs)[::-1][0][1]]
 
 def fight(chrom_list, i, j):
-	fitness = i
+	A_team = chrom_list[i]
+	B_team = chrom_list[j]
+	a = 0
+	b = 0
+
+	first = a if A_team[a].speed > B_team[b].speed else b
+
+	while a < 6 and b < 6:
+		if first == a:
+			b_hp = attack(A_team[a], B_team[b])
+			if b_hp <= 0:
+				b+=1
+				b_hp = B_team[b].hp
+				first = a if A_team[a].speed > B_team[b].speed else b
+			else:
+				a_hp = attack(B_team[b], A_team[a])
+		else:
+			a_hp = attack(B_team[b], A_team[a])
+			if a_hp <= 0:
+				a+=1
+				a_hp = A_team[a].hp
+				first = a if A_team[a].speed > B_team[b].speed else b
+			else:
+				b_hp = attack(A_team[a], B_team[b])
+
 	return fitness
 
+def attack(attack, defend):
+	.84 
+
 # Sample Database row
-# Name	Type 1	Type 2	Total	HP	Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
+#   	Name			Type 1	Type 2	Total		HP		Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
+# 1	Bulbasaur	Grass		Poison	318		45		49			49			65				65			45		1				FALSE
+
+# no =      models.IntegerField()
+# name =    models.CharField(max_length=200)
+# type1 =   models.CharField(max_length=200)
+# type2 =   models.CharField(max_length=200)
+# total =   models.IntegerField()
+# hp =      models.IntegerField()
+# attack =  models.IntegerField()
+# defense = models.IntegerField()
+# spatk =   models.IntegerField()
+# spdef =   models.IntegerField()
+# speed =   models.IntegerField()
 
 # -------------
 #     Main 
