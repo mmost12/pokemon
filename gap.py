@@ -79,8 +79,7 @@ def attack(attack, defend):
 	if((attack.type2, defend.type2) in type_adv):
 		type2_modifier *= type_adv[(attack.type2, defend.type2)]
 
-	type_modifier = type1_modifier if type1_modifier > type2_modifier else 
-					type2_modifier
+	type_modifier = type1_modifier if type1_modifier > type2_modifier else type2_modifier
 
 	return .84 * ratio * 50 * type_modifier
 
