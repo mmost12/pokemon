@@ -4,7 +4,7 @@ from evo.models import Pokemon
 
 # Global variables
 pop_size       = 100
-stop_evolution = 1000
+stop_evolution = 100
 k_tournament   = 10
 population     = []
 
@@ -85,7 +85,7 @@ def attack(attack, defend):
 
 	type_modifier = type1_modifier if type1_modifier > type2_modifier else type2_modifier
 
-	return .84 * ratio * 50 * type_modifier
+	return 35.2 * ratio * type_modifier
 
 
 
@@ -122,6 +122,8 @@ for x in range(pop_size):
 
 print("Population Initilized, beginning evolution...\n")
 for generation in range(stop_evolution):
+	if stop_evolution % (generation * 10) == 0:
+		print("Gen:",generation)
 	new_population = []
 	for chrom in population:
 
