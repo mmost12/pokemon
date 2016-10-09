@@ -122,7 +122,7 @@ for x in range(pop_size):
 
 print("Population Initilized, beginning evolution...\n")
 for generation in range(stop_evolution):
-	if generation != 0 and stop_evolution % (generation * 10) == 0:
+	if generation != 0 and generation % 10 == 0:
 		print("Gen:",generation)
 	new_population = []
 	for chrom in population:
