@@ -10,4 +10,6 @@ def index(request):
         return render(request, 'evo/index.html', {})
 
 def evo(request):
-    return render(request, 'evo/evo.html', {})
+    report = test.small()
+    return render(request, 'evo/evo.html', {'report': report})
+

@@ -2,12 +2,6 @@ import random
 from type_chart import type_adv
 from evo.models import Pokemon
 
-# Global variables
-pop_size       = 100
-stop_evolution = 1000
-k_tournament   = 10
-population     = []
-
 def recombination(chrom1, chrom2):
 	return chrom1[:3] + chrom2[3:]
 
@@ -36,29 +30,31 @@ def fight(chrom_list, i, j):
 	a = 0
 	b = 0
 
-	first = a if A_team[a].speed > B_team[b].speed else b
+	first = 'a' if A_team[a].speed > B_team[b].speed else 'b'
 	a_hp = A_team[a].hp
 	b_hp = B_team[b].hp
 
 	while a < 6 and b < 6:
-		if first == a:
+		if first == 'a':
 			b_hp -= attack(A_team[a], B_team[b])
 			if b_hp <= 0:
+				print(B_team[b].name,"defeted by", A_team[a].name,"!")
 				b+=1
 				if b >= 6:
 					break
 				b_hp = B_team[b].hp
-				first = a if A_team[a].speed > B_team[b].speed else b
+				first = 'a' if A_team[a].speed > B_team[b].speed else 'b'
 			else:
 				a_hp = attack(B_team[b], A_team[a])
 		else:
 			a_hp -= attack(B_team[b], A_team[a])
 			if a_hp <= 0:
+				print(A_team[a].name,"defeted by", B_team[b].name,"!")
 				a+=1
 				if a >= 6:
 					break
 				a_hp = A_team[a].hp
-				first = a if A_team[a].speed > B_team[b].speed else b
+				first = 'a' if A_team[a].speed > B_team[b].speed else 'b'
 			else:
 				b_hp = attack(A_team[a], B_team[b])
 
@@ -106,43 +102,60 @@ def attack(attack, defend):
 # speed =   models.IntegerField()
 
 # -------------
-#     Main 
+#     Main
 # -------------
-random.seed()
+def run(pop_size, stop_evolution, k_tournament):
+	random.seed()
+	population = []
+	report     = []
 
 # Initilize population
-for x in range(pop_size):
-	chrom = []
+	for x in range(pop_size):
+		chrom = []
 
-	for team_select in range(6):
-		rand_pokemon = random.randint(1,800)
-		chrom.append(Pokemon.objects.get(no=rand_pokemon))
+		for team_select in range(6):
+			rand_pokemon = random.randint(1,800)
+			chrom.append(Pokemon.objects.get(no=rand_pokemon))
 
-	population.append(chrom)
+		population.append(chrom)
+	print("Initial population:")
+	for pokemon in population[0]:
+		print(pokemon.name)
+	print("")
 
-print("Population Initilized, beginning evolution...\n")
-for generation in range(stop_evolution):
-	if generation != 0 and generation % 10 == 0:
-		print("Gen:",generation)
-	new_population = []
-	for chrom in population:
+	print("Population Initilized, beginning evolution...\n")
+	for generation in range(stop_evolution):
+		if generation != 0 and generation % 10 == 0:
+			print("Gen:",generation)
 
-		# Select k chroms to have a tournament
-		chrom_list_1 = []
-		chrom_list_2 = []
-		for k in range(k_tournament):
-			rand_pokemon = random.randint(0,pop_size-1)
-			chrom_list_1.append(population[rand_pokemon])
+		new_population = []
+		for chrom in population:
 
-			rand_pokemon = random.randint(0,pop_size-1)
-			chrom_list_2.append(population[rand_pokemon])
+			# Select k chroms to have a tournament
+			chrom_list_1 = []
+			chrom_list_2 = []
+			for k in range(k_tournament):
+				rand_pokemon = random.randint(0,pop_size-1)
+				chrom_list_1.append(population[rand_pokemon])
 
-		# Recombination & Mutation
-		child = mutation(recombination(evaluate(chrom_list_1),evaluate(chrom_list_2)))
-		new_population.append(child)
+				rand_pokemon = random.randint(0,pop_size-1)
+				chrom_list_2.append(population[rand_pokemon])
 
-	population = new_population
+			# Recombination & Mutation
+			child = mutation(recombination(evaluate(chrom_list_1),evaluate(chrom_list_2)))
+			new_population.append(child)
 
-print("Best team found after", stop_evolution, "generations")
-for pokemon in population[0]:
-	print(pokemon.name)
+		population = new_population
+		report.append(' '.join([x.name for x in population[0]]))
+
+	print("Best team found after", stop_evolution, "generations")
+	for pokemon in population[0]:
+		print(pokemon.name)
+
+	return report
+
+if( __name__ ==  '__main__' ):
+    debug = True if 'd' in sys.argv else False
+    run( int( sys.argv[1] ), int( sys.argv[2] ), int( sys.argv[3] ) )
+else:
+    debug = False
