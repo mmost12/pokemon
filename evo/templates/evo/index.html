@@ -1,5 +1,10 @@
-hello world
+{% load static %}
+<head>
+  <link href="{% static 'evo/css/bootstrap.min.css' %}" rel="stylesheet">
+  <script src="{% static 'evo/js/bootstrap.min.js' %}"></script>
+</head>
 
+hello world
 
 <form class="form" action-"start/" method="post">
   {% csrf_token %}
