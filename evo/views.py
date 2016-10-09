@@ -93,5 +93,4 @@ def evo(request):
             elif report[i][j] == 'Jr.':
                 report[i][j] = 'Mime-Jr'
 
-
     return render(request, 'evo/evo.html', {'report': report})
