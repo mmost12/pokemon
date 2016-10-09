@@ -1,4 +1,5 @@
 import random
+from type_chart import type_adv
 from evo.models import Pokemon
 
 # Global variables
@@ -36,10 +37,12 @@ def fight(chrom_list, i, j):
 	b = 0
 
 	first = a if A_team[a].speed > B_team[b].speed else b
+    a_hp = A_team[a].hp
+    b_hp = B_team[b].hp
 
 	while a < 6 and b < 6:
 		if first == a:
-			b_hp = attack(A_team[a], B_team[b])
+			b_hp -= attack(A_team[a], B_team[b])
 			if b_hp <= 0:
 				b+=1
 				b_hp = B_team[b].hp
@@ -47,7 +50,7 @@ def fight(chrom_list, i, j):
 			else:
 				a_hp = attack(B_team[b], A_team[a])
 		else:
-			a_hp = attack(B_team[b], A_team[a])
+			a_hp -= attack(B_team[b], A_team[a])
 			if a_hp <= 0:
 				a+=1
 				a_hp = A_team[a].hp
@@ -55,10 +58,33 @@ def fight(chrom_list, i, j):
 			else:
 				b_hp = attack(A_team[a], B_team[b])
 
-	return fitness
+	return i if a > b else j
 
 def attack(attack, defend):
-	.84 
+    atk_ratio = attack.attack / defend.defense
+    sp_ratio = attack.spatk / defend.spdef
+
+    ratio = atk_ratio if atk_ratio > sp_ratio else sp_ratio
+
+    type1_modifier = 1
+    type2_modifier = 1
+
+    if((attack.type1, defend.type1) in type_adv):
+        type1_modifier *= type_adv[(attack.type1, defend.type1)]
+    if((attack.type1, defend.type2) in type_adv):
+        type1_modifier *= type_adv[(attack.type1, defend.type2)]
+
+    if((attack.type2, defend.type1) in type_adv):
+        type2_modifier *= type_adv[(attack.type2, defend.type1)]
+    if((attack.type2, defend.type2) in type_adv):
+        type2_modifier *= type_adv[(attack.type2, defend.type2)]
+
+    type_modifier = type1_modifier if type1_modifier > type2_modifier else 
+                    type2_modifier
+
+    return .84 * ratio * 50 * type_modifier
+
+
 
 # Sample Database row
 #   	Name			Type 1	Type 2	Total		HP		Attack	Defense	Sp. Attack	Sp. Def	Speed	Generation	Legendary
