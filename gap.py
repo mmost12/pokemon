@@ -45,6 +45,8 @@ def fight(chrom_list, i, j):
 			b_hp -= attack(A_team[a], B_team[b])
 			if b_hp <= 0:
 				b+=1
+				if b >= 6:
+					break
 				b_hp = B_team[b].hp
 				first = a if A_team[a].speed > B_team[b].speed else b
 			else:
@@ -53,6 +55,8 @@ def fight(chrom_list, i, j):
 			a_hp -= attack(B_team[b], A_team[a])
 			if a_hp <= 0:
 				a+=1
+				if a >= 6:
+					break
 				a_hp = A_team[a].hp
 				first = a if A_team[a].speed > B_team[b].speed else b
 			else:
