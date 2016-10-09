@@ -37,8 +37,8 @@ def fight(chrom_list, i, j):
 	b = 0
 
 	first = a if A_team[a].speed > B_team[b].speed else b
-    a_hp = A_team[a].hp
-    b_hp = B_team[b].hp
+	a_hp = A_team[a].hp
+	b_hp = B_team[b].hp
 
 	while a < 6 and b < 6:
 		if first == a:
@@ -61,28 +61,28 @@ def fight(chrom_list, i, j):
 	return i if a > b else j
 
 def attack(attack, defend):
-    atk_ratio = attack.attack / defend.defense
-    sp_ratio = attack.spatk / defend.spdef
+	atk_ratio = attack.attack / defend.defense
+	sp_ratio = attack.spatk / defend.spdef
 
-    ratio = atk_ratio if atk_ratio > sp_ratio else sp_ratio
+	ratio = atk_ratio if atk_ratio > sp_ratio else sp_ratio
 
-    type1_modifier = 1
-    type2_modifier = 1
+	type1_modifier = 1
+	type2_modifier = 1
 
-    if((attack.type1, defend.type1) in type_adv):
-        type1_modifier *= type_adv[(attack.type1, defend.type1)]
-    if((attack.type1, defend.type2) in type_adv):
-        type1_modifier *= type_adv[(attack.type1, defend.type2)]
+	if((attack.type1, defend.type1) in type_adv):
+		type1_modifier *= type_adv[(attack.type1, defend.type1)]
+	if((attack.type1, defend.type2) in type_adv):
+		type1_modifier *= type_adv[(attack.type1, defend.type2)]
 
-    if((attack.type2, defend.type1) in type_adv):
-        type2_modifier *= type_adv[(attack.type2, defend.type1)]
-    if((attack.type2, defend.type2) in type_adv):
-        type2_modifier *= type_adv[(attack.type2, defend.type2)]
+	if((attack.type2, defend.type1) in type_adv):
+		type2_modifier *= type_adv[(attack.type2, defend.type1)]
+	if((attack.type2, defend.type2) in type_adv):
+		type2_modifier *= type_adv[(attack.type2, defend.type2)]
 
-    type_modifier = type1_modifier if type1_modifier > type2_modifier else 
-                    type2_modifier
+	type_modifier = type1_modifier if type1_modifier > type2_modifier else 
+					type2_modifier
 
-    return .84 * ratio * 50 * type_modifier
+	return .84 * ratio * 50 * type_modifier
 
 
 
