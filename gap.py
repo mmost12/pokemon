@@ -14,9 +14,8 @@ def mutation(chrom):
 	for p in range(len(chrom)):
 		rand = random.randint(1,100)
 		if(rand <= 5):
-			rand_pokemon = random.randint(0,800)
-			# chrom[p] = Pokemon.objects.all().filter(num=rand_pokemon)
-			chrom[p] = Pokemon.objects.get(no=3)
+			rand_pokemon = random.randint(0,799)
+			chrom[p]     = Pokemon.objects.get(no=rand_pokemon)
 	return chrom
 
 def evaluate(chrom_list):
@@ -47,8 +46,8 @@ for x in range(pop_size):
 	chrom = []
 
 	for team_select in range(6):
-		rand_pokemon = random.randint(0,800)
-		chrom.append(Pokemon.objects.get(no=4))
+		rand_pokemon = random.randint(0,799)
+		chrom.append(Pokemon.objects.get(no=rand_pokemon))
 
 	population.append(chrom)
 
