@@ -4,7 +4,7 @@ from evo.models import Pokemon
 
 # Global variables
 pop_size       = 100
-stop_evolution = 100
+stop_evolution = 1000
 k_tournament   = 10
 population     = []
 
@@ -122,8 +122,8 @@ for x in range(pop_size):
 
 print("Population Initilized, beginning evolution...\n")
 for generation in range(stop_evolution):
-	if stop_evolution % (generation+1 * 10) == 0:
-		print("Gen:",generation-1)
+	if generation != 0 and stop_evolution % (generation * 10) == 0:
+		print("Gen:",generation)
 	new_population = []
 	for chrom in population:
 
