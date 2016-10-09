@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <link href="{% static 'evo/css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+<body>
+<h2>Pokemon Fight!</h2><br>
+<h3>
+<div class="container">
+    <div class="row">
+          <table class="table">
+          <tr>
+            <td> Team 1 </td>
+            {% for pokemon in teams.0 %}
+              <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ pokemon|lower }}.png">{{ pokemon }}</td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td> Team 2 </td>
+            {% for pokemon in teams.1 %}
+              <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ pokemon|lower }}.png">{{ pokemon }}</td>
+            {% endfor %}
+          </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <table class="table">
+        {% for play in report %}
+          {% if play.0 == "Attack" %}
+          <tr>
+            <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ play.1|lower }}.png">{{ play.1 }}</td>
+            <td> <p> Attack -> </p> </td>
+            <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ play.2|lower }}.png">{{ play.2 }}</td>
+            <td> <p> for {{play.3}} HP</p> </td>
+          {% endif %}
+          {% if play.0 == "Defeat" %}
+          <tr class="danger">
+            <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ play.1|lower }}.png">{{ play.1 }}</td>
+            <td> <p> Defeated! </p> </td>
+            <td> <img src="https://img.pokemondb.net/sprites/black-white/normal/{{ play.2|lower }}.png">{{ play.2 }}</td>
+            <td> </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{% static 'evo/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
